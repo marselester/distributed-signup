@@ -32,6 +32,17 @@ For instance, Segment shared how they leverage [RocksDB](http://rocksdb.org/) in
 while CockroachDB uses RocksDB as a [Storage Layer](https://www.cockroachlabs.com/docs/stable/architecture/storage-layer.html#rocksdb).
 Now I know what to try next!
 
+A word about artificial keys in PostgreSQL.
+UUID v4 is a common choice to generate a random unique ID for an entity, e.g., invoice ID.
+Indexing of highly randomized values cause write amplification, so INSERTs become slow.
+In [SQL Keys in Depth](https://begriffs.com/posts/2018-01-01-sql-keys-in-depth.html) the author
+shows the superior performance of UUID v1 algorithm which produces
+[node MAC address + timestamp](https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_1_(date-time_and_MAC_address))
+monotonically increasing values.
+In this demo I used [K-Sortable Unique IDentifier](https://github.com/segmentio/ksuid) (timestamp + randomly generated payload)
+to assign user IDs in PostgreSQL.
+Segment goes into KSUID details in [A Brief History of the UUID](https://segment.com/blog/a-brief-history-of-the-uuid/).
+
 ## Get Started
 
 Let's run three PostgreSQL docker containers. Note, `PGUSER` and `PGPASSWORD` will be available for `pg-ctl`, `signup-server` programs.
