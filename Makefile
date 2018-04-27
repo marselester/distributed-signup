@@ -4,4 +4,4 @@ build:
 	go build ./cmd/signup-ctl
 
 test:
-	go test ./pg ./kafka
+	go test ./...
