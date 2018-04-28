@@ -4,15 +4,38 @@ services:
     image: wurstmeister/zookeeper
     ports:
       - "2181:2181"
+
   kafka:
     image: wurstmeister/kafka:1.0.0
     ports:
       - "9092:9092"
     environment:
-      # Set ip address in KAFKA_ADVERTISED_HOST_NAME from result of:
-      # $ ipconfig getifaddr en0
-      KAFKA_ADVERTISED_HOST_NAME: my_ip_addr
-      KAFKA_CREATE_TOPICS: "account.signup_request:3:1,account.signup_response:3:1"
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      - KAFKA_ADVERTISED_HOST_NAME
+      - KAFKA_CREATE_TOPICS=account.signup_request:3:1,account.signup_response:3:1
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+
+  postgres-0:
+    image: postgres:10.3-alpine
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_USER: account
+      POSTGRES_PASSWORD: swordfish
+
+  postgres-1:
+    image: postgres:10.3-alpine
+    ports:
+      - "5434:5432"
+    environment:
+      POSTGRES_USER: account
+      POSTGRES_PASSWORD: swordfish
+
+  postgres-2:
+    image: postgres:10.3-alpine
+    ports:
+      - "5435:5432"
+    environment:
+      POSTGRES_USER: account
+      POSTGRES_PASSWORD: swordfish

@@ -30,8 +30,8 @@ func main() {
 	pgHost := flag.String("pghost", "localhost", "PostgreSQL host to connect to.")
 	pgPort := flag.Uint("pgport", 5432, "PostgreSQL port to connect to.")
 	pgDatabase := flag.String("pgdatabase", "account", "PostgreSQL database name.")
-	pgUser := flag.String("pguser", "", "PostgreSQL user.")
-	pgPassword := flag.String("pgpassword", "", "PostgreSQL password.")
+	pgUser := flag.String("pguser", "account", "PostgreSQL user.")
+	pgPassword := flag.String("pgpassword", "swordfish", "PostgreSQL password.")
 
 	broker := flag.String("broker", "127.0.0.1:9092", "Broker address to connect to.")
 	partition := flag.Int("partition", 0, "Partition number of account.signup_request topic.")
